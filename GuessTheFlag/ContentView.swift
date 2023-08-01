@@ -16,6 +16,7 @@ struct ContentView: View {
     
     @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "Spain", "UK", "US"].shuffled()
     @State private var correctAnswer = Int.random(in: 0...2)
+    @State private var answerMessage = ""
     
     var body: some View {
         ZStack {
@@ -77,7 +78,7 @@ struct ContentView: View {
         .alert(scoreTitle, isPresented: $flagAlert) {
             Button("Continue", action: askQuestion)
         } message: {
-            Text("Your score is \(score) out of \(questionsAsked)")
+            Text(answerMessage + "\nYour score is \(score) out of \(questionsAsked)")
         }
     }
     
@@ -88,6 +89,7 @@ struct ContentView: View {
         } else {
             scoreTitle = "Wrong"
         }
+        answerMessage = "\(scoreTitle)! That's the flag of \(countries[number])."
         questionsAsked += 1
         flagAlert = true
     }
